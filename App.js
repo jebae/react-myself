@@ -1,5 +1,6 @@
 import { createElement } from "./lib/fiber.js";
 import { useEffect, useState } from "./lib/hook.js";
+import { Switch, Route, useRouter } from "./lib/router.js";
 
 export default () => {
 	const [ num, setNum ] = useState(0);
@@ -40,6 +41,10 @@ export default () => {
 				value: text,
 				onInput: (e) => { setText(e.target.value) },
 			}),
+			createElement(Switch, {},
+				createElement(Route, { path: "/" }, createElement(Home, {})),
+				createElement(Route, { path: "/profile" }, createElement(Profile, {})),
+			)
 		)
 	);
 }
@@ -53,5 +58,37 @@ const Btn = (props) => {
 			onClick,
 			value,
 		})
+	);
+}
+
+const Home = () => {
+	const router = useRouter();
+
+	return (
+		createElement("div", {},
+			createElement("h3", {}, "home"),
+			createElement("span",
+				{
+					onClick: () => router.push("/profile"),
+				},
+				"Lets go profile"
+			)
+		)
+	);
+}
+
+const Profile = () => {
+	const router = useRouter();
+
+	return (
+		createElement("div", {},
+			createElement("h3", {}, "profile"),
+			createElement("span",
+				{
+					onClick: () => router.push("/"),
+				},
+				"Lets go home"
+			)
+		)
 	);
 }
