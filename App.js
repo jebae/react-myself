@@ -1,6 +1,7 @@
 import { createElement } from "./lib/fiber.js";
 import { useEffect, useState } from "./lib/hook.js";
 import { Switch, Route, useRouter } from "./lib/router.js";
+import { SearchInput } from "./SearchInput.js";
 
 export default () => {
 	const [ num, setNum ] = useState(0);
@@ -41,6 +42,7 @@ export default () => {
 				value: text,
 				onInput: (e) => { setText(e.target.value) },
 			}),
+			createElement(SearchInput),
 			createElement(Switch, {},
 				createElement(Route, { path: "/" }, createElement(Home, {})),
 				createElement(Route, { path: "/profile" }, createElement(Profile, {})),
